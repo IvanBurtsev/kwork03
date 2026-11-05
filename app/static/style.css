@@ -1,0 +1,15 @@
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f0f2f5; min-height: 100vh; }
+.navbar-brand { font-weight: 700; font-size: 1.3rem; }
+.card { border: none; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.form-control { border-radius: 8px; border-color: #e5e7eb; padding: 0.625rem 0.875rem; }
+.form-control:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
+.btn-primary { background: #6366f1; border: none; border-radius: 8px; padding: 0.5rem 1.25rem; font-weight: 500; }
+.btn-primary:hover { background: #4f46e5; }
+.table th { font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: #6b7280; border-top: none; }
+.table td { vertical-align: middle; }
+.table-hover tbody tr:hover { background: #f9fafb; }
+footer { color: #9ca3af; font-size: 0.8rem; }
+h1 { font-size: 1.5rem; font-weight: 600; }
+.nav-link { color: #6b7280; font-weight: 500; border-radius: 8px; padding: 0.5rem 1rem; }
+.nav-link:hover { color: #6366f1; background: rgba(99,102,241,0.08); }

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{% if edit %}Редактировать{% else %}Новый клиент{% endif %}{% endblock %}
+{% block content %}
+
+<h1>{% if edit %}✏️ Редактировать клиента{% else %}➕ Новый клиент{% endif %}</h1>
+
+{% if error %}
+<div class="alert alert-danger">{{ error|e }}</div>
+{% endif %}
+
+<div class="card">
+  <div class="card-body">
+    <form action="{% if edit %}/dashboard/client/{{ client.id }}/edit{% else %}/dashboard/client/create{% endif %}" method="post">
+      <div class="mb-3">
+        <label class="form-label">Имя <span class="text-danger">*</span></label>
+        <input type="text" name="name" class="form-control" value="{{ client.name|e if client else '' }}" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" value="{{ client.email|e if client else '' }}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Телефон</label>
+        <input type="text" name="phone" class="form-control" value="{{ client.phone|e if client else '' }}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Заметка</label>
+        <textarea name="note" class="form-control" rows="3">{{ client.note|e if client else '' }}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        {% if edit %}Сохранить{% else %}Создать{% endif %}
+      </button>
+      <a href="/dashboard" class="btn btn-outline-secondary ms-2">Отмена</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
