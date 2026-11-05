@@ -41,7 +41,7 @@
           <td>{{ c.email|e or '—' }}</td>
           <td>{{ c.phone|e or '—' }}</td>
           <td class="text-truncate" style="max-width:200px">{{ c.note|e or '—' }}</td>
-          <td class="text-muted small text-nowrap">{{ c.created_at.strftime('%d.%m %H:%M') }}</td>
+          <td class="text-muted small text-nowrap">{{ (c.created_at.astimezone()).strftime('%d.%m.%Y %H:%M') }}</td>
           <td class="text-end text-nowrap">
             <a href="/dashboard/client/{{ c.id }}/edit" class="btn btn-sm btn-outline-primary">✏️</a>
             <form action="/dashboard/client/{{ c.id }}/delete" method="post" style="display:inline" onsubmit="return confirm('Удалить клиента?')">
