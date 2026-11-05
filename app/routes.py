@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import io
+import re
 from pathlib import Path
 
 from fastapi import APIRouter, Form, HTTPException, Request
@@ -15,6 +16,9 @@ from app.db import session_maker
 from app.models import Client, User
 
 router = APIRouter()
+
+_PHONE_RE = re.compile(r"^[+]?[\d\s()\-]{5,20}$")
+_EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 _templates_dir = Path(__file__).parent / "templates"
 _env = Environment(
@@ -141,6 +145,16 @@ async def client_create(
         return HTMLResponse(
             _render("item_form.html", error="Имя должно быть минимум 2 символа")
         )
+    phone_raw = phone.strip()
+    if phone_raw and not _PHONE_RE.match(phone_raw):
+        return HTMLResponse(
+            _render("item_form.html", error="Некорректный телефон. Пример: +7 900 000-00-00")
+        )
+    email_raw = email.strip()
+    if email_raw and not _EMAIL_RE.match(email_raw):
+        return HTMLResponse(
+            _render("item_form.html", error="Некорректный email")
+        )
     async with session_maker() as session:
         c = Client(
             user_id=user_id,
@@ -179,6 +193,20 @@ async def client_edit(
         if not client or client.user_id != user_id:
             return HTMLResponse(
                 _render("item_form.html", error="Клиент не найден")
+            )
+        if len(name.strip()) < 2:
+            return HTMLResponse(
+                _render("item_form.html", error="Имя должно быть минимум 2 символа")
+            )
+        phone_raw = phone.strip()
+        if phone_raw and not _PHONE_RE.match(phone_raw):
+            return HTMLResponse(
+                _render("item_form.html", error="Некорректный телефон")
+            )
+        email_raw = email.strip()
+        if email_raw and not _EMAIL_RE.match(email_raw):
+            return HTMLResponse(
+                _render("item_form.html", error="Некорректный email")
             )
         client.name = name.strip()
         client.email = email.strip() or None

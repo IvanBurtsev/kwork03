@@ -21,7 +21,11 @@
 {% if not clients %}
 <div class="card p-5 text-center text-muted">
   <div style="font-size:2rem">👤</div>
+  {% if search %}
+  <p>Ничего не найдено по запросу «{{ search|e }}».</p>
+  {% else %}
   <p>Нет клиентов. <a href="/dashboard/client/new">Добавьте первого</a>.</p>
+  {% endif %}
 </div>
 {% else %}
 <div class="card">
